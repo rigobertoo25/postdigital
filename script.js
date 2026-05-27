@@ -153,7 +153,7 @@ initAOS();
 
   // Add style for active link dynamically
   const style = document.createElement('style');
-  style.textContent = `.nav-links a.active-link:not(.nav-cta) { color: var(--cyan); }`;
+  style.textContent = `.nav-links a.active-link:not(.nav-cta) { color: var(--primary); }`;
   document.head.appendChild(style);
 })();
 
@@ -163,51 +163,23 @@ initAOS();
 contactForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const nombre   = contactForm.nombre.value.trim();
+  const nombre = contactForm.nombre.value.trim();
   const telefono = contactForm.telefono.value.trim();
   const servicio = contactForm.servicio.value;
-  const mensaje  = contactForm.mensaje.value.trim();
+  const mensaje = contactForm.mensaje.value.trim();
 
-  // Basic validation
-  let valid = true;
-  const fields = [
-    { el: contactForm.nombre,   val: nombre },
-    { el: contactForm.telefono, val: telefono },
-    { el: contactForm.servicio, val: servicio },
-    { el: contactForm.mensaje,  val: mensaje },
-  ];
-  fields.forEach(({ el, val }) => {
-    if (!val) {
-      el.style.borderColor = 'var(--red)';
-      el.style.boxShadow   = '0 0 0 3px rgba(255,68,85,0.15)';
-      valid = false;
-      el.addEventListener('input', () => {
-        el.style.borderColor = '';
-        el.style.boxShadow   = '';
-      }, { once: true });
-    }
-  });
+  if (!nombre || !telefono || !servicio || !mensaje) {
+    alert('Completa todos los campos.');
+    return;
+  }
 
-  if (!valid) return;
+  const texto = `Hola, soy ${nombre}%0A%0ATeléfono: ${telefono}%0AServicio: ${servicio}%0A%0ADetalles:%0A${mensaje}`;
 
-  // Simulate async submit
-  const btn = contactForm.querySelector('button[type="submit"]');
-  const originalHTML = btn.innerHTML;
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-  btn.disabled = true;
+  const numero = '526121024638';
 
-  setTimeout(() => {
-    btn.innerHTML = originalHTML;
-    btn.disabled = false;
-    formSuccess.style.display = 'flex';
-    contactForm.reset();
-    formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  window.open(`https://wa.me/${numero}?text=${texto}`, '_blank');
 
-    // Auto-hide after 6s
-    setTimeout(() => {
-      formSuccess.style.display = 'none';
-    }, 6000);
-  }, 1800);
+  contactForm.reset();
 });
 
 /* ═════════════════════════════════════════════
