@@ -340,6 +340,38 @@ select, input, textarea {
   position: relative;
   overflow: hidden;
 }
+
+@media (max-width: 768px) {
+    .hero-card img {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .hero-card {
+        position: static;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        margin-top: 40px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .hero-actions a {
+        width: 100%;
+        justify-content: center;
+    }
+
+}
+
 .hero-grid-bg {
   position: absolute;
   inset: 0;
